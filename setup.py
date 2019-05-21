@@ -25,6 +25,7 @@ INSTALL_REQUIRES = [
     'elasticsearch<6',
     'click',
     'awesome-slugify',
+    'dataflows-normalize',
 ]
 LINT_REQUIRES = [
     'pylama',

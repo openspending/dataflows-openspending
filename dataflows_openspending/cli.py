@@ -1,14 +1,18 @@
 import yaml
+import json
 
 import click
 
 from dgp.core import Config, Context, BaseDataGenusProcessor
 from dgp.taxonomies.registry import TaxonomyRegistry
 from dgp.genera import SimpleDGP, LoaderDGP, TransformDGP, EnricherDGP
-from dgp.config.consts import CONFIG_URL, CONFIG_ENCODING, CONFIG_TAXONOMY_ID, CONFIG_HEADER_FIELDS, CONFIG_MODEL_MAPPING, RESOURCE_NAME
+from dgp.config.consts import CONFIG_URL, CONFIG_ENCODING, CONFIG_TAXONOMY_ID, CONFIG_HEADER_FIELDS,\
+        CONFIG_MODEL_MAPPING, RESOURCE_NAME
 
 from dataflows import Flow, dump_to_path
 from dataflows_normalize import normalize_to_db, NormGroup
+from slugify import slugify
+
 
 CONFIG_EXTRA_METADATA_DATASET_NAME = 'extra.metadata.dataset-name'
 CONFIG_EXTRA_METADATA_REVISION = 'extra.metadata.revision'
@@ -17,7 +21,7 @@ CONFIG_EXTRA_PRIVATE = 'extra.private'
 CONFIG_EXTRA_METADATA_TITLE = 'extra.metadata.title'
 
 
-def Publisher(BaseDataGenusProcessor):
+class Publisher(BaseDataGenusProcessor):
 
     def __init__(self, config, context, output_datapackage, output_db, output_es):
         super().__init__(config, context)
@@ -48,11 +52,11 @@ def Publisher(BaseDataGenusProcessor):
             )
             groups = [
                 NormGroup([
-                    x['name'].replace(':', '-')
-                    for x in self.config.get(CONFIG_MODEL_MAPPING)
-                    if 'columnType' in x and x['columnType'].split(':')[0] == prefix
-                ], '{}_id'.format(prefix), 'id',
-                db_table='{}_{}'.format(db_table, prefix))
+                        x['name'].replace(':', '-')
+                        for x in self.config.get(CONFIG_MODEL_MAPPING)
+                        if 'columnType' in x and x['columnType'].split(':')[0] == prefix
+                    ], '{}_id'.format(prefix), 'id',
+                    db_table='{}_{}'.format(db_table, prefix))
                 for prefix in prefixes
             ]
             steps.extend([
@@ -66,7 +70,7 @@ def Publisher(BaseDataGenusProcessor):
             steps.extend([
                 self.update_es()
             ])
-
+        return Flow(*steps)
 
 
 def convert_source_spec(source_spec, taxonomy_id):
@@ -104,7 +108,7 @@ def convert_source_spec(source_spec, taxonomy_id):
         assert len(mapping) == len(headers)
         config.set(CONFIG_MODEL_MAPPING, mapping)
 
-        config.set('extra.deduplicate', source_spec.get('deduplicate') == True)
+        config.set('extra.deduplicate', source_spec.get('deduplicate') is True)
 
         title = source_spec['title']
         dataset_name = source_spec.get('dataset-name', title)
@@ -147,13 +151,14 @@ def process_source(config, output_datapackage, output_db, output_es):
     assert flow is not None
     flow.process()
 
+
 @click.command()
 @click.option('--source-spec', default=None, help='source spec yaml file')
 @click.option('--config', default=None, help='config json file')
 @click.option('--taxonomy', default='fiscal', help='selected taxonomy to use')
 @click.option('--output-datapackage', default=None, help='path for writing output as datapackage')
 @click.option('--output-db', default=None, help='database connection string to write to')
-@click.option('--output-es', default=None, help='elasticserach connection string to update')
+@click.option('--output-es', default=None, help='elasticsearch connection string to update')
 def main(source_spec, config, taxonomy,
          output_datapackage, output_db, output_es):
 
@@ -166,7 +171,6 @@ def main(source_spec, config, taxonomy,
         configs = convert_source_spec(source_spec, taxonomy)
     elif config:
         configs = [json.load(open(config))]
-        
 
     for config in configs:
         process_source(config, output_datapackage, output_db, output_es)
