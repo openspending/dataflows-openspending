@@ -1,0 +1,1085 @@
+[
+  {
+    "name": "activity:generic:contract:code",
+    "dataType": "string",
+    "prior": "activity:generic:subproject:code",
+    "unique": true,
+    "title": "Activity / Non-standard Activity / Contract / Unique Identifier",
+    "description": "A code or unique identifier for the contract"
+  },
+  {
+    "name": "activity:generic:contract:label",
+    "dataType": "string",
+    "labelOf": "activity:generic:contract:code",
+    "title": "Activity / Non-standard Activity / Contract / Display Name",
+    "description": "A label, title or display name for this contract"
+  },
+  {
+    "name": "activity:generic:program:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Activity / Non-standard Activity / Program / Unique Identifier",
+    "description": "A code or unique identifier for the program"
+  },
+  {
+    "name": "activity:generic:program:label",
+    "dataType": "string",
+    "labelOf": "activity:generic:program:code",
+    "title": "Activity / Non-standard Activity / Program / Display Name",
+    "description": "A label, title or display name for this program"
+  },
+  {
+    "name": "activity:generic:subprogram:code",
+    "dataType": "string",
+    "unique": true,
+    "prior": "activity:generic:program:code",
+    "title": "Activity / Non-standard Activity / Sub-Program / Unique Identifier",
+    "description": "A code or unique identifier for the subprogram"
+  },
+  {
+    "name": "activity:generic:subprogram:label",
+    "dataType": "string",
+    "labelOf": "activity:generic:subprogram:code",
+    "title": "Activity / Non-standard Activity / Sub-Program / Display Name",
+    "description": "A label, title or display name for this subprogram"
+  },
+  {
+    "name": "activity:generic:project:code",
+    "dataType": "string",
+    "prior": "activity:generic:subprogram:code",
+    "unique": true,
+    "title": "Activity / Non-standard Activity / Project / Unique Identifier",
+    "description": "A code or unique identifier for the project"
+  },
+  {
+    "name": "activity:generic:project:label",
+    "dataType": "string",
+    "labelOf": "activity:generic:project:code",
+    "title": "Activity / Non-standard Activity / Project / Display Name",
+    "description": "A label, title or display name for this project"
+  },
+  {
+    "name": "activity:generic:subproject:code",
+    "dataType": "string",
+    "prior": "activity:generic:project:code",
+    "unique": true,
+    "title": "Activity / Non-standard Activity / Sub-Project / Unique Identifier",
+    "description": "A code or unique identifier for the sub-project"
+  },
+  {
+    "name": "activity:generic:subproject:label",
+    "dataType": "string",
+    "labelOf": "activity:generic:subproject:code",
+    "title": "Activity / Non-standard Activity / Sub-Project / Display Name",
+    "description": "A label, title or display name for this sub-project"
+  },
+  {
+    "name": "administrative-classification:generic:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Administrative Classification / Non-standard Administrative Classification / Unique Identifier",
+    "description": "A code or unique identifier for the classification (not level specific)"
+  },
+  {
+    "name": "administrative-classification:generic:description",
+    "dataType": "string",
+    "title": "Administrative Classification / Non-standard Administrative Classification / Description",
+    "description": "A longer descriptive text for this classification"
+  },
+  {
+    "name": "administrative-classification:generic:label",
+    "dataType": "string",
+    "labelOf": "administrative-classification:generic:code",
+    "title": "Administrative Classification / Non-standard Administrative Classification / Display Name",
+    "description": "A label, title or display name for the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level1:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Administrative Classification / Non-standard Administrative Classification / Top Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the top level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level1:description",
+    "dataType": "string",
+    "title": "Administrative Classification / Non-standard Administrative Classification / Top Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level1:label",
+    "dataType": "string",
+    "labelOf": "administrative-classification:generic:level1:code",
+    "title": "Administrative Classification / Non-standard Administrative Classification / Top Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level2:code",
+    "dataType": "string",
+    "prior": "administrative-classification:generic:level1:code",
+    "unique": true,
+    "title": "Administrative Classification / Non-standard Administrative Classification / 2nd Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 2nd level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level2:description",
+    "dataType": "string",
+    "title": "Administrative Classification / Non-standard Administrative Classification / 2nd Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level2:label",
+    "dataType": "string",
+    "labelOf": "administrative-classification:generic:level2:code",
+    "title": "Administrative Classification / Non-standard Administrative Classification / 2nd Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level3:code",
+    "dataType": "string",
+    "prior": "administrative-classification:generic:level2:code",
+    "unique": true,
+    "title": "Administrative Classification / Non-standard Administrative Classification / 3rd Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 3rd level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level3:description",
+    "dataType": "string",
+    "title": "Administrative Classification / Non-standard Administrative Classification / 3rd Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level3:label",
+    "dataType": "string",
+    "labelOf": "administrative-classification:generic:level3:code",
+    "title": "Administrative Classification / Non-standard Administrative Classification / 3rd Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level4:code",
+    "dataType": "string",
+    "prior": "administrative-classification:generic:level3:code",
+    "unique": true,
+    "title": "Administrative Classification / Non-standard Administrative Classification / 4th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 4th level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level4:description",
+    "dataType": "string",
+    "title": "Administrative Classification / Non-standard Administrative Classification / 4th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level4:label",
+    "dataType": "string",
+    "labelOf": "administrative-classification:generic:level4:code",
+    "title": "Administrative Classification / Non-standard Administrative Classification / 4th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level5:code",
+    "dataType": "string",
+    "prior": "administrative-classification:generic:level4:code",
+    "unique": true,
+    "title": "Administrative Classification / Non-standard Administrative Classification / 5th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 5th level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level5:description",
+    "dataType": "string",
+    "title": "Administrative Classification / Non-standard Administrative Classification / 5th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level5:label",
+    "dataType": "string",
+    "labelOf": "administrative-classification:generic:level5:code",
+    "title": "Administrative Classification / Non-standard Administrative Classification / 5th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level6:code",
+    "dataType": "string",
+    "prior": "administrative-classification:generic:level5:code",
+    "unique": true,
+    "title": "Administrative Classification / Non-standard Administrative Classification / 6th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 6th level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level6:description",
+    "dataType": "string",
+    "title": "Administrative Classification / Non-standard Administrative Classification / 6th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level6:label",
+    "dataType": "string",
+    "labelOf": "administrative-classification:generic:level6:code",
+    "title": "Administrative Classification / Non-standard Administrative Classification / 6th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level7:code",
+    "dataType": "string",
+    "prior": "administrative-classification:generic:level6:code",
+    "unique": true,
+    "title": "Administrative Classification / Non-standard Administrative Classification / 7th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 7th level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level7:description",
+    "dataType": "string",
+    "title": "Administrative Classification / Non-standard Administrative Classification / 7th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level7:label",
+    "dataType": "string",
+    "labelOf": "administrative-classification:generic:level7:code",
+    "title": "Administrative Classification / Non-standard Administrative Classification / 7th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level8:code",
+    "dataType": "string",
+    "prior": "administrative-classification:generic:level7:code",
+    "unique": true,
+    "title": "Administrative Classification / Non-standard Administrative Classification / 8th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 8th level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level8:description",
+    "dataType": "string",
+    "title": "Administrative Classification / Non-standard Administrative Classification / 8th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "administrative-classification:generic:level8:label",
+    "dataType": "string",
+    "labelOf": "administrative-classification:generic:level8:code",
+    "title": "Administrative Classification / Non-standard Administrative Classification / 8th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "budget-line-id",
+    "dataType": "string",
+    "unique": true,
+    "title": "Budget Line Identifier",
+    "description": "A unique identifier for this budget line"
+  },
+  {
+    "name": "date:fiscal-year",
+    "dataType": "integer",
+    "unique": true,
+    "mandatory": true,
+    "title": "Date / Fiscal year",
+    "description": "The fiscal-year for which the values in this record are relevant"
+  },
+  {
+    "name": "date:generic",
+    "dataType": "date",
+    "unique": true,
+    "title": "Date / Other date",
+    "description": "An non-specific date related to the values in this record (e.g. transaction date etc.)"
+  },
+  {
+    "name": "date:fiscal:activity-start",
+    "dataType": "date",
+    "unique": true,
+    "title": "Date / Fiscal Dates / Start Date",
+    "description": "The starting date of a specific activity"
+  },
+  {
+    "name": "date:fiscal:activity-end",
+    "dataType": "date",
+    "unique": true,
+    "title": "Date / Fiscal Dates / Ending Date",
+    "description": "The ending date of a specific activity"
+  },
+  {
+    "name": "date:fiscal:activity-approval",
+    "dataType": "date",
+    "unique": true,
+    "title": "Date / Fiscal Dates / Approval Date",
+    "description": "The approval date of a specific activity"
+  },
+  {
+    "name": "date:fiscal:first-payment",
+    "dataType": "date",
+    "unique": true,
+    "title": "Date / Fiscal Dates / First Payment Date",
+    "description": "The date of the first payment for a specific activity"
+  },
+  {
+    "name": "date:fiscal:final-payment",
+    "dataType": "date",
+    "unique": true,
+    "title": "Date / Fiscal Dates / Final Payment Date",
+    "description": "The date of the last payment for a specific activity"
+  },
+  {
+    "name": "direction",
+    "dataType": "string",
+    "unique": true,
+    "title": "Budget Direction",
+    "description": "Specifies whether the values in this line are expenditure or revenues"
+  },
+  {
+    "name": "economic-classification:generic:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Economic Classification / Non-standard Economic Classification / Unique Identifier",
+    "description": "A code or unique identifier for the classification (not level specific)"
+  },
+  {
+    "name": "economic-classification:generic:description",
+    "dataType": "string",
+    "title": "Economic Classification / Non-standard Economic Classification / Description",
+    "description": "A longer descriptive text for this classification"
+  },
+  {
+    "name": "economic-classification:generic:label",
+    "dataType": "string",
+    "labelOf": "economic-classification:generic:code",
+    "title": "Economic Classification / Non-standard Economic Classification / Display Name",
+    "description": "A label, title or display name for the classification"
+  },
+  {
+    "name": "economic-classification:generic:level1:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Economic Classification / Non-standard Economic Classification / Top Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the top level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level1:description",
+    "dataType": "string",
+    "title": "Economic Classification / Non-standard Economic Classification / Top Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level1:label",
+    "dataType": "string",
+    "labelOf": "economic-classification:generic:level1:code",
+    "title": "Economic Classification / Non-standard Economic Classification / Top Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level2:code",
+    "dataType": "string",
+    "prior": "economic-classification:generic:level1:code",
+    "unique": true,
+    "title": "Economic Classification / Non-standard Economic Classification / 2nd Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 2nd level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level2:description",
+    "dataType": "string",
+    "title": "Economic Classification / Non-standard Economic Classification / 2nd Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level2:label",
+    "dataType": "string",
+    "labelOf": "economic-classification:generic:level2:code",
+    "title": "Economic Classification / Non-standard Economic Classification / 2nd Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level3:code",
+    "dataType": "string",
+    "prior": "economic-classification:generic:level2:code",
+    "unique": true,
+    "title": "Economic Classification / Non-standard Economic Classification / 3rd Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 3rd level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level3:description",
+    "dataType": "string",
+    "title": "Economic Classification / Non-standard Economic Classification / 3rd Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level3:label",
+    "dataType": "string",
+    "labelOf": "economic-classification:generic:level3:code",
+    "title": "Economic Classification / Non-standard Economic Classification / 3rd Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level4:code",
+    "dataType": "string",
+    "prior": "economic-classification:generic:level3:code",
+    "unique": true,
+    "title": "Economic Classification / Non-standard Economic Classification / 4th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 4th level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level4:description",
+    "dataType": "string",
+    "title": "Economic Classification / Non-standard Economic Classification / 4th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level4:label",
+    "dataType": "string",
+    "labelOf": "economic-classification:generic:level4:code",
+    "title": "Economic Classification / Non-standard Economic Classification / 4th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level5:code",
+    "dataType": "string",
+    "prior": "economic-classification:generic:level4:code",
+    "unique": true,
+    "title": "Economic Classification / Non-standard Economic Classification / 5th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 5th level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level5:description",
+    "dataType": "string",
+    "title": "Economic Classification / Non-standard Economic Classification / 5th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level5:label",
+    "dataType": "string",
+    "labelOf": "economic-classification:generic:level5:code",
+    "title": "Economic Classification / Non-standard Economic Classification / 5th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level6:code",
+    "dataType": "string",
+    "prior": "economic-classification:generic:level5:code",
+    "unique": true,
+    "title": "Economic Classification / Non-standard Economic Classification / 6th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 6th level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level6:description",
+    "dataType": "string",
+    "title": "Economic Classification / Non-standard Economic Classification / 6th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level6:label",
+    "dataType": "string",
+    "labelOf": "economic-classification:generic:level6:code",
+    "title": "Economic Classification / Non-standard Economic Classification / 6th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level7:code",
+    "dataType": "string",
+    "prior": "economic-classification:generic:level6:code",
+    "unique": true,
+    "title": "Economic Classification / Non-standard Economic Classification / 7th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 7th level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level7:description",
+    "dataType": "string",
+    "title": "Economic Classification / Non-standard Economic Classification / 7th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level7:label",
+    "dataType": "string",
+    "labelOf": "economic-classification:generic:level7:code",
+    "title": "Economic Classification / Non-standard Economic Classification / 7th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level8:code",
+    "dataType": "string",
+    "prior": "economic-classification:generic:level7:code",
+    "unique": true,
+    "title": "Economic Classification / Non-standard Economic Classification / 8th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 8th level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level8:description",
+    "dataType": "string",
+    "title": "Economic Classification / Non-standard Economic Classification / 8th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "economic-classification:generic:level8:label",
+    "dataType": "string",
+    "labelOf": "economic-classification:generic:level8:code",
+    "title": "Economic Classification / Non-standard Economic Classification / 8th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "economic-classification:gfsm:level1:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Economic Classification / GFSM Economic Classification / Top Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the top level of the classification"
+  },
+  {
+    "name": "economic-classification:gfsm:level1:description",
+    "dataType": "string",
+    "title": "Economic Classification / GFSM Economic Classification / Top Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "economic-classification:gfsm:level1:label",
+    "dataType": "string",
+    "labelOf": "economic-classification:gfsm:level1:code",
+    "title": "Economic Classification / GFSM Economic Classification / Top Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "economic-classification:gfsm:level2:code",
+    "dataType": "string",
+    "prior": "economic-classification:gfsm:level1:code",
+    "unique": true,
+    "title": "Economic Classification / GFSM Economic Classification / 2nd Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 2nd level of the classification"
+  },
+  {
+    "name": "economic-classification:gfsm:level2:description",
+    "dataType": "string",
+    "title": "Economic Classification / GFSM Economic Classification / 2nd Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "economic-classification:gfsm:level2:label",
+    "dataType": "string",
+    "labelOf": "economic-classification:gfsm:level2:code",
+    "title": "Economic Classification / GFSM Economic Classification / 2nd Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "economic-classification:gfsm:level3:code",
+    "dataType": "string",
+    "prior": "economic-classification:gfsm:level2:code",
+    "unique": true,
+    "title": "Economic Classification / GFSM Economic Classification / 3rd Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 3rd level of the classification"
+  },
+  {
+    "name": "economic-classification:gfsm:level3:description",
+    "dataType": "string",
+    "title": "Economic Classification / GFSM Economic Classification / 3rd Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "economic-classification:gfsm:level3:label",
+    "dataType": "string",
+    "labelOf": "economic-classification:gfsm:level3:code",
+    "title": "Economic Classification / GFSM Economic Classification / 3rd Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "economic-classification:gfsm:level4:code",
+    "dataType": "string",
+    "prior": "economic-classification:gfsm:level3:code",
+    "unique": true,
+    "title": "Economic Classification / GFSM Economic Classification / 4th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 4th level of the classification"
+  },
+  {
+    "name": "economic-classification:gfsm:level4:description",
+    "dataType": "string",
+    "title": "Economic Classification / GFSM Economic Classification / 4th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "economic-classification:gfsm:level4:label",
+    "dataType": "string",
+    "labelOf": "economic-classification:gfsm:level4:code",
+    "title": "Economic Classification / GFSM Economic Classification / 4th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "functional-classification:cofog:class:code",
+    "dataType": "string",
+    "prior": "functional-classification:cofog:group:code",
+    "unique": true,
+    "title": "Functional Classification / COFOG Functional Classification / COFOG Class / COFOG Class code",
+    "description": "The COFOG 'Class' Level code"
+  },
+  {
+    "name": "functional-classification:cofog:class:description",
+    "dataType": "string",
+    "title": "Functional Classification / COFOG Functional Classification / COFOG Class / COFOG Class description",
+    "description": "A more detailed textual description for this class"
+  },
+  {
+    "name": "functional-classification:cofog:class:label",
+    "dataType": "string",
+    "labelOf": "functional-classification:cofog:class:code",
+    "title": "Functional Classification / COFOG Functional Classification / COFOG Class / COFOG Class display name",
+    "description": "A label or display name for this class"
+  },
+  {
+    "name": "functional-classification:cofog:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Functional Classification / COFOG Functional Classification / Complete COFOG code",
+    "description": "The complete COFOG classification code, non level-specific"
+  },
+  {
+    "name": "functional-classification:cofog:description",
+    "dataType": "string",
+    "title": "Functional Classification / COFOG Functional Classification / COFOG description",
+    "description": "Description for this COFOG classification, non level-specific"
+  },
+  {
+    "name": "functional-classification:cofog:division:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Functional Classification / COFOG Functional Classification / COFOG Division / COFOG Division code",
+    "description": "The COFOG 'Division' Level code"
+  },
+  {
+    "name": "functional-classification:cofog:division:description",
+    "dataType": "string",
+    "title": "Functional Classification / COFOG Functional Classification / COFOG Division / COFOG Division description",
+    "description": "A more detailed textual description for this division"
+  },
+  {
+    "name": "functional-classification:cofog:division:label",
+    "dataType": "string",
+    "labelOf": "functional-classification:cofog:division:code",
+    "title": "Functional Classification / COFOG Functional Classification / COFOG Division / COFOG Division display name",
+    "description": "A label or display name for this division"
+  },
+  {
+    "name": "functional-classification:cofog:group:code",
+    "dataType": "string",
+    "prior": "functional-classification:cofog:division:code",
+    "unique": true,
+    "title": "Functional Classification / COFOG Functional Classification / COFOG Group / COFOG Group code",
+    "description": "The COFOG 'Group' Level code"
+  },
+  {
+    "name": "functional-classification:cofog:group:description",
+    "dataType": "string",
+    "title": "Functional Classification / COFOG Functional Classification / COFOG Group / COFOG Group description",
+    "description": "A more detailed textual description for this group"
+  },
+  {
+    "name": "functional-classification:cofog:group:label",
+    "dataType": "string",
+    "labelOf": "functional-classification:cofog:group:code",
+    "title": "Functional Classification / COFOG Functional Classification / COFOG Group / COFOG Group display name",
+    "description": "A label or display name for this group"
+  },
+  {
+    "name": "functional-classification:cofog:label",
+    "dataType": "string",
+    "labelOf": "functional-classification:cofog:code",
+    "title": "Functional Classification / COFOG Functional Classification / COFOG display name",
+    "description": "Display name for this COFOG classification, non level-specific"
+  },
+  {
+    "name": "functional-classification:generic:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Functional Classification / Non-standard Functional Classification / Unique Identifier",
+    "description": "A code or unique identifier for the classification (not level specific)"
+  },
+  {
+    "name": "functional-classification:generic:description",
+    "dataType": "string",
+    "title": "Functional Classification / Non-standard Functional Classification / Description",
+    "description": "A longer descriptive text for this classification"
+  },
+  {
+    "name": "functional-classification:generic:label",
+    "dataType": "string",
+    "labelOf": "functional-classification:generic:code",
+    "title": "Functional Classification / Non-standard Functional Classification / Display Name",
+    "description": "A label, title or display name for the classification"
+  },
+  {
+    "name": "functional-classification:generic:level1:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Functional Classification / Non-standard Functional Classification / Top Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the top level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level1:description",
+    "dataType": "string",
+    "title": "Functional Classification / Non-standard Functional Classification / Top Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level1:label",
+    "dataType": "string",
+    "labelOf": "functional-classification:generic:level1:code",
+    "title": "Functional Classification / Non-standard Functional Classification / Top Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level2:code",
+    "dataType": "string",
+    "prior": "functional-classification:generic:level1:code",
+    "unique": true,
+    "title": "Functional Classification / Non-standard Functional Classification / 2nd Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 2nd level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level2:description",
+    "dataType": "string",
+    "title": "Functional Classification / Non-standard Functional Classification / 2nd Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level2:label",
+    "dataType": "string",
+    "labelOf": "functional-classification:generic:level2:code",
+    "title": "Functional Classification / Non-standard Functional Classification / 2nd Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level3:code",
+    "dataType": "string",
+    "prior": "functional-classification:generic:level2:code",
+    "unique": true,
+    "title": "Functional Classification / Non-standard Functional Classification / 3rd Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 3rd level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level3:description",
+    "dataType": "string",
+    "title": "Functional Classification / Non-standard Functional Classification / 3rd Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level3:label",
+    "dataType": "string",
+    "labelOf": "functional-classification:generic:level3:code",
+    "title": "Functional Classification / Non-standard Functional Classification / 3rd Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level4:code",
+    "dataType": "string",
+    "prior": "functional-classification:generic:level3:code",
+    "unique": true,
+    "title": "Functional Classification / Non-standard Functional Classification / 4th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 4th level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level4:description",
+    "dataType": "string",
+    "title": "Functional Classification / Non-standard Functional Classification / 4th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level4:label",
+    "dataType": "string",
+    "labelOf": "functional-classification:generic:level4:code",
+    "title": "Functional Classification / Non-standard Functional Classification / 4th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level5:code",
+    "dataType": "string",
+    "prior": "functional-classification:generic:level4:code",
+    "unique": true,
+    "title": "Functional Classification / Non-standard Functional Classification / 5th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 5th level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level5:description",
+    "dataType": "string",
+    "title": "Functional Classification / Non-standard Functional Classification / 5th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level5:label",
+    "dataType": "string",
+    "labelOf": "functional-classification:generic:level5:code",
+    "title": "Functional Classification / Non-standard Functional Classification / 5th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level6:code",
+    "dataType": "string",
+    "prior": "functional-classification:generic:level5:code",
+    "unique": true,
+    "title": "Functional Classification / Non-standard Functional Classification / 6th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 6th level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level6:description",
+    "dataType": "string",
+    "title": "Functional Classification / Non-standard Functional Classification / 6th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level6:label",
+    "dataType": "string",
+    "labelOf": "functional-classification:generic:level6:code",
+    "title": "Functional Classification / Non-standard Functional Classification / 6th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level7:code",
+    "dataType": "string",
+    "prior": "functional-classification:generic:level6:code",
+    "unique": true,
+    "title": "Functional Classification / Non-standard Functional Classification / 7th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 7th level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level7:description",
+    "dataType": "string",
+    "title": "Functional Classification / Non-standard Functional Classification / 7th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level7:label",
+    "dataType": "string",
+    "labelOf": "functional-classification:generic:level7:code",
+    "title": "Functional Classification / Non-standard Functional Classification / 7th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level8:code",
+    "dataType": "string",
+    "prior": "functional-classification:generic:level7:code",
+    "unique": true,
+    "title": "Functional Classification / Non-standard Functional Classification / 8th Classification Level / Unique Identifier",
+    "description": "A code or unique identifier for the 8th level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level8:description",
+    "dataType": "string",
+    "title": "Functional Classification / Non-standard Functional Classification / 8th Classification Level / Description Name",
+    "description": "A longer descriptive text for this level of the classification"
+  },
+  {
+    "name": "functional-classification:generic:level8:label",
+    "dataType": "string",
+    "labelOf": "functional-classification:generic:level8:code",
+    "title": "Functional Classification / Non-standard Functional Classification / 8th Classification Level / Display Name",
+    "description": "A label, title or display name for this level of the classification"
+  },
+  {
+    "name": "geo-source:generic:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Geographic information / Other Geographic information / Unique Identifier",
+    "description": "Unique identifier or code for Geographic feature specified in the data"
+  },
+  {
+    "name": "geo-source:generic:codeList",
+    "dataType": "string",
+    "unique": true,
+    "title": "Geographic information / Other Geographic information / Code List",
+    "description": "Indicates a specific code list from which a Geographic identifier is drawn"
+  },
+  {
+    "name": "geo-source:generic:title",
+    "dataType": "string",
+    "labelOf": "geo-source:generic:code",
+    "title": "Geographic information / Other Geographic information / Display Name",
+    "description": "The display name of the geographic feature"
+  },
+  {
+    "name": "geo-source:source:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Geographic information / Source Geographic information / Unique Identifier",
+    "description": "Unique identifier or code for Geographic feature specified in the data"
+  },
+  {
+    "name": "geo-source:source:codeList",
+    "dataType": "string",
+    "unique": true,
+    "title": "Geographic information / Source Geographic information / Code List",
+    "description": "Indicates a specific code list from which a Geographic identifier is drawn"
+  },
+  {
+    "name": "geo-source:source:title",
+    "dataType": "string",
+    "labelOf": "geo-source:source:code",
+    "title": "Geographic information / Source Geographic information / Display Name",
+    "description": "The display name of the geographic feature"
+  },
+  {
+    "name": "geo-source:target:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Geographic information / Target Geographic information / Unique Identifier",
+    "description": "Unique identifier or code for Geographic feature specified in the data"
+  },
+  {
+    "name": "geo-source:target:codeList",
+    "dataType": "string",
+    "unique": true,
+    "title": "Geographic information / Target Geographic information / Code List",
+    "description": "Indicates a specific code list from which a Geographic identifier is drawn"
+  },
+  {
+    "name": "geo-source:target:title",
+    "dataType": "string",
+    "labelOf": "geo-source:target:code",
+    "title": "Geographic information / Target Geographic information / Display Name",
+    "description": "The display name of the geographic feature"
+  },
+  {
+    "name": "geo-source:target:level1:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Geographic information / Target Geographic information / Top Level / Unique identifier",
+    "description": "Unique identifier or code for the Top Level Geographic feature specified in the data"
+  },
+  {
+    "name": "geo-source:target:level1:title",
+    "dataType": "string",
+    "labelOf": "geo-source:target:level1:code",
+    "title": "Geographic information / Target Geographic information / Top Level / Display Name",
+    "description": "The display name for the Top Level Geographic feature specified in the data"
+  },
+  {
+    "name": "geo-source:target:level2:code",
+    "dataType": "string",
+    "unique": true,
+    "prior": "geo-source:target:level1:code",
+    "title": "Geographic information / Target Geographic information / 2nd Level / Unique identifier",
+    "description": "Unique identifier or code for the 2nd Level Geographic feature specified in the data"
+  },
+  {
+    "name": "geo-source:target:level2:title",
+    "dataType": "string",
+    "labelOf": "geo-source:target:level2:code",
+    "title": "Geographic information / Target Geographic information / 2nd Level / Display Name",
+    "description": "The display name for the 2nd Level Geographic feature specified in the data"
+  },
+  {
+    "name": "phase:id",
+    "dataType": "string",
+    "unique": true,
+    "title": "Budget Life-cycle Phase / Phase Identifier",
+    "description": "The phase identifier"
+  },
+  {
+    "name": "phase:label",
+    "dataType": "string",
+    "labelOf": "phase:id",
+    "title": "Budget Life-cycle Phase / Budget Life-cycle Phase",
+    "description": "The phase display name"
+  },
+  {
+    "name": "value",
+    "dataType": "number",
+    "mandatory": true,
+    "title": "Amount",
+    "description": "Numeric value depicting a fiscal amount related to the budget item, spending transaction etc."
+  },
+  {
+    "name": "value-kind:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Amount Kind / Code for Amount Kind",
+    "description": "Unique identifier for the amount kind"
+  },
+  {
+    "name": "value-kind:label",
+    "dataType": "string",
+    "labelOf": "value-kind:code",
+    "title": "Amount Kind / Label for Amount Kind",
+    "description": "Display name for the amount kind"
+  },
+  {
+    "name": "value-currency:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Amount Currency / Code for Amount Currency",
+    "description": "Unique identifier for the amount currency"
+  },
+  {
+    "name": "value-currency:label",
+    "dataType": "string",
+    "labelOf": "value-currency:code",
+    "title": "Amount Currency / Label for Amount Currency",
+    "description": "Display name for the amount currency"
+  },
+  {
+    "name": "fin-source:generic:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Financial Source / Non-standard Financial Source / Unique Identifier",
+    "description": "A code or unique identifier for the financial source"
+  },
+  {
+    "name": "fin-source:generic:label",
+    "dataType": "string",
+    "labelOf": "fin-source:generic:code",
+    "title": "Financial Source / Non-standard Financial Source / Display Name",
+    "description": "Display name or title for the financial source"
+  },
+  {
+    "name": "fin-source:generic:level1:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Financial Source / Non-standard Financial Source / Top Level for a hierarchical financial source / Unique Identifier",
+    "description": "A code or unique identifier for the top level of the financial source hierarchy"
+  },
+  {
+    "name": "fin-source:generic:level1:label",
+    "dataType": "string",
+    "labelOf": "fin-source:generic:level1:code",
+    "title": "Financial Source / Non-standard Financial Source / Top Level for a hierarchical financial source / Display Name",
+    "description": "Display name or title for the top level of the financial source hierarchy"
+  },
+  {
+    "name": "fin-source:generic:level2:code",
+    "dataType": "string",
+    "prior": "fin-source:generic:level1:code",
+    "unique": true,
+    "title": "Financial Source / Non-standard Financial Source / 2nd Level for a hierarchical financial source / Unique Identifier",
+    "description": "A code or unique identifier for the 2nd level of the financial source hierarchy"
+  },
+  {
+    "name": "fin-source:generic:level2:label",
+    "dataType": "string",
+    "labelOf": "fin-source:generic:level2:code",
+    "title": "Financial Source / Non-standard Financial Source / 2nd Level for a hierarchical financial source / Display Name",
+    "description": "Display name or title for the 2nd level of the financial source hierarchy"
+  },
+  {
+    "name": "fin-source:generic:level3:code",
+    "dataType": "string",
+    "prior": "fin-source:generic:level2:code",
+    "unique": true,
+    "title": "Financial Source / Non-standard Financial Source / 3rd Level for a hierarchical financial source / Unique Identifier",
+    "description": "A code or unique identifier for the 3rd level of the financial source hierarchy"
+  },
+  {
+    "name": "fin-source:generic:level3:label",
+    "dataType": "string",
+    "labelOf": "fin-source:generic:level3:code",
+    "title": "Financial Source / Non-standard Financial Source / 3rd Level for a hierarchical financial source / Display Name",
+    "description": "Display name or title for the 3rd level of the financial source hierarchy"
+  },
+  {
+    "name": "expenditure-type:code",
+    "dataType": "string",
+    "unique": true,
+    "title": "Expenditure Type / Unique Identifier",
+    "description": "Unique identifier for the expenditure type"
+  },
+  {
+    "name": "expenditure-type:label",
+    "dataType": "string",
+    "labelOf": "expenditure-type:code",
+    "title": "Expenditure Type / Display Name",
+    "description": "Display name for the expenditure type"
+  },
+  {
+    "name": "budgetary-transfers",
+    "dataType": "string",
+    "title": "Budgetary Transfers",
+    "description": "Extra properties regarding whether the expenditure contains budgetary transfers"
+  }
+]
