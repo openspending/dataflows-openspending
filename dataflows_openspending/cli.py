@@ -1,5 +1,4 @@
 import yaml
-import json
 
 import click
 
@@ -30,8 +29,22 @@ class Publisher(BaseDataGenusProcessor):
         self.output_es = output_es
 
     def update_es(self):
-        # TODO
-        pass
+
+        def progress(res, count):
+            for row in res:
+                yield row
+                if count['i'] % 1000 == 0:
+                    print('STATUS: PROGRESS', count['i'])
+                count['i'] += 1
+
+        def func(package):
+            print('STATUS: STARTING')
+            yield package.pkg
+            count = dict(i=0)
+            for res in package:
+                yield progress(res, count)
+            print('STATUS: DONE')
+        return func
 
     def flow(self):
         steps = []
@@ -52,7 +65,7 @@ class Publisher(BaseDataGenusProcessor):
             )
             groups = [
                 NormGroup([
-                        x['name'].replace(':', '-')
+                        x['columnType'].replace(':', '-')
                         for x in self.config.get(CONFIG_MODEL_MAPPING)
                         if 'columnType' in x and x['columnType'].split(':')[0] == prefix
                     ], '{}_id'.format(prefix), 'id',
@@ -63,8 +76,10 @@ class Publisher(BaseDataGenusProcessor):
                 normalize_to_db(
                     groups,
                     db_table,
-                    RESOURCE_NAME
-                )
+                    RESOURCE_NAME,
+                    self.output_db
+                ),
+                dump_to_path(self.output_datapackage + '-norm')
             ])
         if self.output_es:
             steps.extend([
@@ -167,10 +182,14 @@ def main(source_spec, config, taxonomy,
 
     configs = False
     if source_spec:
-        source_spec = yaml.load(open(source_spec))
-        configs = convert_source_spec(source_spec, taxonomy)
+        source_spec_obj = yaml.load(open(source_spec))
+        configs = convert_source_spec(source_spec_obj, taxonomy)
+        for i, config in enumerate(configs):
+            yaml.dump(config._unflatten(),
+                      open('{}.{:02d}.yaml'.format(source_spec, i), 'w'),
+                      default_flow_style=False, indent=2, allow_unicode=True, encoding='utf8')
     elif config:
-        configs = [json.load(open(config))]
+        configs = [Config(config)]
 
     for config in configs:
         process_source(config, output_datapackage, output_db, output_es)
