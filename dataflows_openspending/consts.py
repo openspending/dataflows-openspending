@@ -1,0 +1,5 @@
+CONFIG_EXTRA_METADATA_DATASET_NAME = 'extra.metadata.dataset-name'
+CONFIG_EXTRA_METADATA_REVISION = 'extra.metadata.revision'
+CONFIG_EXTRA_RESOURCE_NAME = 'extra.resource-name'
+CONFIG_EXTRA_PRIVATE = 'extra.private'
+CONFIG_EXTRA_METADATA_TITLE = 'extra.metadata.title'

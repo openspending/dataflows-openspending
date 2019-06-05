@@ -1,0 +1,13 @@
+fiscal:
+  title: fiscal
+  column_types: fiscal/column_types.json
+
+mexico:
+  title: Mexico
+  column_types:
+    - fiscal/column_types.json
+    - mexico/column_types.json
+  config:
+    key-fields:
+      - date-fiscal-year
+

@@ -1,0 +1,58 @@
+[
+    {
+        "name": "value:ADEFAS",
+        "dataType": "number",
+        "title": "ADEFAS",
+        "options": {
+            "currency": "MXN"
+        }
+    },
+    {
+        "name": "value:APROBADO",
+        "dataType": "number",
+        "title": "Aprobado",
+        "options": {
+            "currency": "MXN"
+        }
+    },
+    {
+        "name": "value:DEVENGADO",
+        "dataType": "number",
+        "title": "Devengado",
+        "options": {
+            "currency": "MXN"
+        }
+    },
+    {
+        "name": "value:EJERCICIO",
+        "dataType": "number",
+        "title": "Ejercicio",
+        "options": {
+            "currency": "MXN"
+        }
+    },
+    {
+        "name": "value:EJERCIDO",
+        "dataType": "number",
+        "title": "Ejercido",
+        "options": {
+            "currency": "MXN"
+        }
+    },
+    {
+        "name": "value:MODIFICADO",
+        "dataType": "number",
+        "title": "Modificado",
+        "options": {
+            "currency": "MXN"
+        }
+    },
+    {
+        "name": "value:PAGADO",
+        "dataType": "number",
+        "title": "Pagado",
+        "options": {
+            "currency": "MXN"
+        }
+    }
+]
