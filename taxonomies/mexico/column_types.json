@@ -1,5 +1,17 @@
 [
     {
+        "name": "value",
+        "alternatives": [
+            ["value:ADEFAS"],
+            ["value:APROBADO"],
+            ["value:DEVENGADO"],
+            ["value:EJERCICIO"],
+            ["value:EJERCIDO"],
+            ["value:MODIFICADO"],
+            ["value:PAGADO"]
+        ]
+    },
+    {
         "name": "value:ADEFAS",
         "dataType": "number",
         "title": "ADEFAS",
