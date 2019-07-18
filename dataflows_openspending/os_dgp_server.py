@@ -18,6 +18,6 @@ class OsDgpServer(DgpServer):
 
     def publish_flow(self, config: Config, context: Context):
         return [
-            PublisherDGP(config, context, None, self.db_url, 'xx'),
+            PublisherDGP(config, context, None, self.db_url, self.lazy_engine(), 'xx'),
             ConfigStorerDGP(config, context, self.lazy_engine())
         ]

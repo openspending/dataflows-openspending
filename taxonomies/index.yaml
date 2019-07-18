@@ -10,4 +10,5 @@ mexico:
   config:
     key-fields:
       - date-fiscal-year
+  processing_module: mexico/process.py
 

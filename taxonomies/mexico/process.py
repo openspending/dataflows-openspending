@@ -1,4 +1,4 @@
-from ..fiscal.process import flows as p_flows
+from dataflows_openspending.common_transforms import flows as p_flows
 
 
 def flows(config, context):

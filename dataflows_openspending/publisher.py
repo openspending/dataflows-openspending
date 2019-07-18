@@ -1,18 +1,22 @@
 from dgp.core import BaseDataGenusProcessor
-from dataflows import Flow, dump_to_path
+from dataflows import Flow, dump_to_path, add_field
 from dataflows_normalize import normalize_to_db, NormGroup
-from dgp.config.consts import CONFIG_TAXONOMY_ID, \
+from dgp.config.consts import CONFIG_TAXONOMY_ID, CONFIG_URL, \
         CONFIG_MODEL_MAPPING, RESOURCE_NAME, CONFIG_PUBLISH_ALLOWED
 from .consts import CONFIG_EXTRA_METADATA_DATASET_NAME
+from dgp_server.log import logger
+from dgp_server.publish_flow import clear_by_source, append_to_primary_key
 
 
 class PublisherDGP(BaseDataGenusProcessor):
 
-    def __init__(self, config, context, output_datapackage, output_db, output_es):
+    def __init__(self, config, context, output_datapackage,
+                 output_db, lazy_engine, output_es):
         super().__init__(config, context)
         self.output_datapackage = output_datapackage
         self.output_db = output_db
         self.output_es = output_es
+        self.lazy_engine = lazy_engine
 
     def update_es(self):
 
@@ -20,16 +24,16 @@ class PublisherDGP(BaseDataGenusProcessor):
             for row in res:
                 yield row
                 if count['i'] % 1000 == 0:
-                    print('STATUS: PROGRESS', count['i'])
+                    logger.info('STATUS: PROGRESS %d', count['i'])
                 count['i'] += 1
 
         def func(package):
-            print('STATUS: STARTING')
+            logger.info('STATUS: STARTING')
             yield package.pkg
             count = dict(i=0)
             for res in package:
                 yield progress(res, count)
-            print('STATUS: DONE')
+            logger.info('STATUS: DONE')
         return func
 
     def flow(self):
@@ -60,12 +64,19 @@ class PublisherDGP(BaseDataGenusProcessor):
                     db_table='{}_{}'.format(db_table, prefix))
                 for prefix in prefixes
             ]
+            source = self.config.get(CONFIG_URL)
+            steps.extend([
+                add_field('_source', 'string', source),
+                append_to_primary_key(['_source']),
+                clear_by_source(self.lazy_engine(), db_table, source),
+            ])
             steps.extend([
                 normalize_to_db(
                     groups,
                     db_table,
                     RESOURCE_NAME,
-                    self.output_db
+                    self.output_db,
+                    'append'
                 ),
             ])
             if self.output_datapackage:

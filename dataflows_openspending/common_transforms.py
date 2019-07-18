@@ -4,7 +4,7 @@ from dataflows import Flow, add_computed_field, delete_fields, \
 from dgp.core.base_enricher import ColumnTypeTester, ColumnReplacer, \
         DatapackageJoiner, enrichments_flows, BaseEnricher, DuplicateRemover
 from dgp.config.consts import RESOURCE_NAME, CONFIG_PRIMARY_KEY, CONFIG_MODEL_MAPPING
-
+from dgp_server.log import logger
 
 class LoadMetadata(BaseEnricher):
 
@@ -21,6 +21,7 @@ class LoadMetadata(BaseEnricher):
 class Deduplicator(BaseEnricher):
 
     def test(self):
+        logger.info('DEDPULICATING %r', self.config.get('extra.deduplicate'))
         return self.config.get('extra.deduplicate')
 
     def postflow(self):
@@ -28,25 +29,57 @@ class Deduplicator(BaseEnricher):
             ct.replace(':', '-')
             for ct in self.config.get(CONFIG_PRIMARY_KEY)
         ]
-        value_field_names = [
-            mapping['columnType'].replace(':', '-')
-            for mapping in self.config.get(CONFIG_MODEL_MAPPING)
-            if ('columnType' in mapping and
-                mapping['columnType'].split(':')[0] == 'value')
-        ]
+        used = set()
+
+        def dedup(rows):
+            if rows.res.name == RESOURCE_NAME:
+                for row in rows:
+                    key = tuple(row.get(k) for k in key_field_names)
+                    if key not in used:
+                        used.add(key)
+                        yield row
+            else:
+                yield from rows
+
         steps = [
-            join_with_self(
-                RESOURCE_NAME,
-                key_field_names,
-                {
-                    **dict((f, {}) for f in key_field_names),
-                    **dict((f, dict(aggregate='sum')) for f in value_field_names),
-                    '*': dict(aggregate='last')
-                }
-            ),
+            dedup,
         ]
+        logger.info('DEDPULICATING with KEYS %r', key_field_names)
         f = Flow(*steps)
         return f
+
+
+# class Deduplicator(BaseEnricher):
+
+#     def test(self):
+#         logger.info('DEDPULICATING %r', self.config.get('extra.deduplicate'))
+#         return self.config.get('extra.deduplicate')
+
+#     def postflow(self):
+#         key_field_names = [
+#             ct.replace(':', '-')
+#             for ct in self.config.get(CONFIG_PRIMARY_KEY)
+#         ]
+#         value_field_names = [
+#             mapping['columnType'].replace(':', '-')
+#             for mapping in self.config.get(CONFIG_MODEL_MAPPING)
+#             if ('columnType' in mapping and
+#                 mapping['columnType'].split(':')[0] == 'value')
+#         ]
+#         steps = [
+#             join_with_self(
+#                 RESOURCE_NAME,
+#                 key_field_names,
+#                 {
+#                     **dict((f, {}) for f in key_field_names),
+#                     **dict((f, dict(aggregate='sum')) for f in value_field_names),
+#                     '*': dict(aggregate='last')
+#                 }
+#             ),
+#         ]
+#         logger.info('DEDPULICATING with KEYS %r', key_field_names)
+#         f = Flow(*steps)
+#         return f
 
 
 class AddBabbageModel(BaseEnricher):
