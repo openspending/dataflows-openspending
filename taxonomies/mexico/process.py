@@ -24,7 +24,6 @@ class MissingColumns(BaseAnalyzer):
 
     def run(self):
         # Values
-        logger.info('DDD %r', [x for x in self.config.get(CONFIG_TAXONOMY_CT) if 'name' not in x])
         values = [
             x
             for x in self.config.get(CONFIG_TAXONOMY_CT)
@@ -41,7 +40,7 @@ class MissingColumns(BaseAnalyzer):
             if x['name'] not in existing_cts:
                 missing.append(dict(
                     title=x['title'],
-                    name=x['title'],
+                    name=x['name'].replace('value:', 'MONTO_'),
                     columnType=x['name'],
                     enriched=True,
                     dataType=x.get('dataType', 'string'),
@@ -50,6 +49,9 @@ class MissingColumns(BaseAnalyzer):
         logger.info('MISSING CTS VALUES %r', missing)
 
         # Objeto Del Gasto
+        title_mapping = dict(
+            (v, k) for k, v in COLUMN_MAPPING.items()
+        )
         missing_cts = [
             x for x in COLUMN_MAPPING.values()
             if x not in existing_cts
@@ -62,7 +64,7 @@ class MissingColumns(BaseAnalyzer):
         missing = [
             dict(
                 title=x['title'],
-                name=x['title'],
+                name=title_mapping[x['name']],
                 columnType=x['name'],
                 enriched=True,
                 dataType=x.get('dataType', 'string'),
