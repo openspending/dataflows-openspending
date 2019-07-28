@@ -1,50 +1,98 @@
 import os
 
 import datapackage
-from dataflows import Flow, add_field
+from dataflows import Flow, set_type
 from dgp.config.consts import CONFIG_MODEL_MAPPING, CONFIG_TAXONOMY_CT
+from dgp.core import BaseAnalyzer
+from dgp_server.log import logger
 from dataflows_openspending.common_transforms import flows as p_flows
 
 
-def values(config):
-    values = [x
-              for x in config.get(CONFIG_TAXONOMY_CT) if x['name'].startswith('value:')]
-    existing_cts = set(x.get('columnType') for x in config.get(CONFIG_MODEL_MAPPING))
+COLUMN_MAPPING = dict([
+    ('ID_CAPITULO', 'economic-classification:generic:level1:code'),
+    ('DESC_CAPITULO', 'economic-classification:generic:level1:label'),
+    ('ID_CONCEPTO', 'economic-classification:generic:level2:code'),
+    ('DESC_CONCEPTO', 'economic-classification:generic:level2:label'),
+    ('ID_PARTIDA_GENERICA', 'economic-classification:generic:level3:code'),
+    ('DESC_PARTIDA_GENERICA', 'economic-classification:generic:level3:label'),
+    ('ID_PARTIDA_ESPECIFICA', 'economic-classification:generic:level4:code'),
+    ('DESC_PARTIDA_ESPECIFICA', 'economic-classification:generic:level4:label'),
+])
+
+
+class MissingColumns(BaseAnalyzer):
+
+    def run(self):
+        # Values
+        logger.info('DDD %r', [x for x in self.config.get(CONFIG_TAXONOMY_CT) if 'name' not in x])
+        values = [
+            x
+            for x in self.config.get(CONFIG_TAXONOMY_CT)
+            if x['name'].startswith('value:')
+        ]
+        mapping = self.config.get(CONFIG_MODEL_MAPPING)
+        existing_cts = set(
+            x.get('columnType')
+            for x in mapping
+        )
+        logger.info('EXISTING CTS %r', existing_cts)
+        missing = []
+        for x in values:
+            if x['name'] not in existing_cts:
+                missing.append(dict(
+                    title=x['title'],
+                    name=x['title'],
+                    columnType=x['name'],
+                    enriched=True,
+                    dataType=x.get('dataType', 'string'),
+                ))
+        mapping.extend(missing)
+        logger.info('MISSING CTS VALUES %r', missing)
+
+        # Objeto Del Gasto
+        missing_cts = [
+            x for x in COLUMN_MAPPING.values()
+            if x not in existing_cts
+        ]
+        missing_cts = [
+            x
+            for x in self.config.get(CONFIG_TAXONOMY_CT)
+            if x['name'] in missing_cts
+        ]
+        missing = [
+            dict(
+                title=x['title'],
+                name=x['title'],
+                columnType=x['name'],
+                enriched=True,
+                dataType=x.get('dataType', 'string'),
+            )
+            for x in missing_cts
+        ]
+        logger.info('MISSING CTS OBJETO %r', missing)
+        mapping.extend(missing)
+        self.config.set(CONFIG_MODEL_MAPPING, mapping)
+
+
+def missing_types(config):
     steps = [
-        add_field(x['name'].replace(':', '-'), 'number', **x.get('options', {}), columnType=x['name'])
-        for x in values
-        if x['name'] not in existing_cts
+        set_type(
+            m['columnType'].replace(':', '-'),
+            type=m['dataType'],
+            columnType=m['columnType'],
+            **m.get('options', {}),
+        )
+        for m in config.get(CONFIG_MODEL_MAPPING)
+        if m.get('enriched')
     ]
     return Flow(*steps)
 
 
 def objeto_del_gasto(config):
-    CT = dict([
-        ('ID_CAPITULO', 'economic-classification:generic:level1:label'),
-        ('DESC_CAPITULO', 'economic-classification:generic:level1:label'),
-        ('ID_CONCEPTO', 'economic-classification:generic:level2:code'),
-        ('DESC_CAPITULO', 'economic-classification:generic:level2:label'),
-        ('ID_PARTIDA_GENERICA', 'economic-classification:generic:level3:code'),
-        ('DESC_PARTIDA_GENERICA', 'economic-classification:generic:level3:label'),
-        ('ID_PARTIDA_ESPECIFICA', 'economic-classification:generic:level4:code'),
-        ('DESC_PARTIDA_ESPECIFICA', 'economic-classification:generic:level4:label'),
-    ])
+    CT = COLUMN_MAPPING
     CN = dict(
         (k, v.replace(':', '-'))
         for k, v in CT.items()
-    )
-
-    new_columns = [
-        'DESC_CAPITULO', 'ID_PARTIDA_GENERICA', 'DESC_PARTIDA_GENERICA',
-        'ID_PARTIDA_ESPECIFICA', 'DESC_PARTIDA_ESPECIFICA'
-    ]
-
-    steps = []
-    existing_cts = set(x.get('columnType') for x in config.get(CONFIG_MODEL_MAPPING))
-    steps.extend(
-        add_field(CN[title], 'string', title=title, columnType=CT[title])
-        for title in new_columns
-        if CT[title] not in existing_cts
     )
 
     lookup = {}
@@ -63,7 +111,7 @@ def objeto_del_gasto(config):
         year = int(row['date-fiscal-year'])
 
         # Skip the LAST year of the dataset (currently 2016) it has split columns already
-        if year < 2019:
+        if year < 2018:
             objeto = row[CN['ID_CONCEPTO']]
             if objeto:
                 row[CN['ID_CAPITULO']] = objeto[0] + '000'
@@ -84,14 +132,19 @@ def objeto_del_gasto(config):
                     row[CN['DESC_PARTIDA_ESPECIFICA']] = \
                         lookup['partida_específica'].get(row.get(CN['ID_PARTIDA_ESPECIFICA']))
 
-    steps.append(process)
-    return Flow(*steps)
+    return process
 
 
 def flows(config, context):
     flows = p_flows(config, context)
     return flows[0], Flow(
         flows[1],
+        missing_types(config),
         objeto_del_gasto(config),
-        values(config)
     )
+
+
+def analyzers(*_):
+    return [
+        MissingColumns
+    ]

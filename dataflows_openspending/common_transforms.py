@@ -33,6 +33,7 @@ class Deduplicator(BaseEnricher):
 
         def dedup(rows):
             if rows.res.name == RESOURCE_NAME:
+                logger.info('DEDPULICATING with KEYS %r', key_field_names)
                 for row in rows:
                     key = tuple(row.get(k) for k in key_field_names)
                     if key not in used:
@@ -44,7 +45,6 @@ class Deduplicator(BaseEnricher):
         steps = [
             dedup,
         ]
-        logger.info('DEDPULICATING with KEYS %r', key_field_names)
         f = Flow(*steps)
         return f
 

@@ -8,7 +8,25 @@ mexico:
     - fiscal/column_types.json
     - mexico/column_types.json
   config:
-    key-fields:
-      - date-fiscal-year
+    extra-config:
+      transform:
+        - title: Dataset Title
+          kind: text
+          key: extra.metadata.title
+        - title: Dataset Name
+          kind: text
+          key: extra.metadata.dataset-name
+        - title: Resource Name
+          kind: text
+          key: extra.resource-name
+        - title: Deduplicate rows
+          kind: boolean
+          key: extra.deduplicate
+          default: false
+      publish:
+        - title: Keep Private (don't publish)
+          kind: boolean
+          key: extra.private
+          default: false
   processing_module: mexico/process.py
 
