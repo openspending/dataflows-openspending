@@ -1,3 +1,3 @@
 psycopg2-binary
-dataflows-normalize>=0.0.4
+dataflows-normalize>=0.0.8
 aiopg

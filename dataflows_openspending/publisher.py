@@ -40,11 +40,14 @@ class PublisherDGP(BaseDataGenusProcessor):
         steps = []
         if not self.config.get(CONFIG_PUBLISH_ALLOWED):
             return None
+        logger.info('Publisher Flow Preparing')
         if self.output_datapackage:
+            logger.info('Publisher Flow: Dump To Path Denorm...')
             steps.extend([
                 dump_to_path(self.output_datapackage)
             ])
         if self.output_db:
+            logger.info('Publisher Flow: Dump To Db...')
             prefixes = set(
                 x['columnType'].split(':')[0]
                 for x in self.config.get(CONFIG_MODEL_MAPPING)
@@ -65,11 +68,13 @@ class PublisherDGP(BaseDataGenusProcessor):
                 for prefix in prefixes
             ]
             source = self.config.get(CONFIG_URL)
+            logger.info('Publisher Flow: _source Handling...')
             steps.extend([
                 add_field('_source', 'string', source),
                 append_to_primary_key(['_source']),
                 clear_by_source(self.lazy_engine(), db_table, source),
             ])
+            logger.info('Publisher Flow: Normalize...')
             steps.extend([
                 normalize_to_db(
                     groups,
@@ -80,11 +85,14 @@ class PublisherDGP(BaseDataGenusProcessor):
                 ),
             ])
             if self.output_datapackage:
+                logger.info('Publisher Flow: Dump To Path Norm...')
                 steps.extend([
                     dump_to_path(self.output_datapackage + '-norm')
                 ])
         if self.output_es:
+            logger.info('Publisher Flow: ES...')
             steps.extend([
                 self.update_es()
             ])
+        logger.info('Publisher Flow Prepared')
         return Flow(*steps)
