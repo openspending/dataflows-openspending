@@ -22,6 +22,7 @@ PACKAGE = 'dataflows_openspending'
 NAME = PACKAGE.replace('_', '-')
 INSTALL_REQUIRES = [
     'dgp',
+    'dgp-server',
     'elasticsearch<6',
     'click',
     'awesome-slugify',
