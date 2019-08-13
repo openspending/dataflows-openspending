@@ -98,7 +98,10 @@
         "_result": false,
         "constants": [],
         "extra": {
-          "deduplicate": true
+          "deduplicate": true,
+          "metadata": {
+            "dataset-name": "budget"
+          }
         },
         "model": {
           "extraFields": [],
