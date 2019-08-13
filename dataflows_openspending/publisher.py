@@ -1,11 +1,13 @@
+import copy
 from slugify import slugify
 from dgp.core import BaseDataGenusProcessor
+from os_package_registry import PackageRegistry
 from dataflows import Flow, dump_to_path, add_field, update_package
 from dataflows_normalize import normalize_to_db, NormGroup
 from dgp.config.consts import CONFIG_TAXONOMY_ID, CONFIG_URL, \
         CONFIG_MODEL_MAPPING, RESOURCE_NAME, CONFIG_PUBLISH_ALLOWED, \
         CONFIG_TAXONOMY_CT, CONFIG_PRIMARY_KEY
-from .consts import CONFIG_EXTRA_METADATA_DATASET_NAME
+from .consts import CONFIG_EXTRA_METADATA_DATASET_NAME, CONFIG_EXTRA_PRIVATE
 from dgp_server.log import logger
 from dgp_server.publish_flow import clear_by_source, append_to_primary_key
 
@@ -22,6 +24,53 @@ class PublisherDGP(BaseDataGenusProcessor):
 
     def update_es(self):
 
+        def update_model_in_registry(pkg, loaded):
+            try:
+                registry = PackageRegistry(self.output_es)
+            except Exception as exception:
+                logger.info('STATUS: FAILED TO UPDATE MODEL')
+                logger.exception(exception)
+                return
+            owner = 'openspending'
+            dataset_id = '{}:{}_{}'.format(
+                owner,
+                self.config.get(CONFIG_TAXONOMY_ID),
+                self.config.get(CONFIG_EXTRA_METADATA_DATASET_NAME),
+            )
+            private = self.config.get(CONFIG_EXTRA_PRIVATE)
+            # TODO: replace by real URL
+            datapackage_url = 'datapackage-url'
+            datapackage = copy.deepcopy(pkg.descriptor)
+            params = {}
+            params['author'] = None
+            params['dataset_name'] = None
+            if 'babbage_model' in datapackage:
+                model = datapackage['babbage_model']
+                del datapackage['babbage_model']
+                params['model'] = model
+            if private is not None:
+                datapackage['private'] = private
+            if owner is not None:
+                datapackage['owner'] = owner
+            if datapackage_url:
+                params['datapackage_url'] = datapackage_url
+                params['datapackage'] = datapackage
+            if loaded is not None:
+                params['loaded'] = loaded
+                params['loading_status'] = 'done' if loaded else 'loading-data'
+            try:
+                # Somehow it doesn't work if the dataset doesn't exist
+                registry.update_model(dataset_id, **params)
+            except Exception:
+                try:
+                    params['status'] = params.pop('loading_status')
+                    registry.save_model(dataset_id, **params)
+                except Exception as exception:
+                    logger.info('STATUS: FAILED TO UPDATE MODEL')
+                    logger.exception(exception)
+                    return
+            logger.info('STATUS: UPDATED MODEL')
+
         def progress(res, count):
             for row in res:
                 yield row
@@ -33,9 +82,12 @@ class PublisherDGP(BaseDataGenusProcessor):
             logger.info('STATUS: STARTING')
             yield package.pkg
             count = dict(i=0)
+            update_model_in_registry(package.pkg, loaded=False)
             for res in package:
                 yield progress(res, count)
+            update_model_in_registry(package.pkg, loaded=True)
             logger.info('STATUS: DONE')
+
         return func
 
     def ref_column(self, prefix):

@@ -27,6 +27,7 @@ INSTALL_REQUIRES = [
     'click',
     'awesome-slugify',
     'dataflows-normalize',
+    'os-package-registry',
 ]
 LINT_REQUIRES = [
     'pylama',
