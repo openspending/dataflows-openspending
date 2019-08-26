@@ -45,6 +45,10 @@ class PublisherDGP(BaseDataGenusProcessor):
             # TODO: replace by real URL
             datapackage_url = 'datapackage-url'
             datapackage = copy.deepcopy(pkg.descriptor)
+            datapackage.update(dict(
+                private=private,
+                owner=owner
+            ))
             registry.save_model(
                 dataset_id,
                 datapackage_url,
