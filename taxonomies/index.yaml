@@ -19,6 +19,9 @@ mexico:
         - title: Resource Name
           kind: text
           key: extra.resource-name
+        - title: Data Update Date
+          kind: text
+          key: extra.update-date
         - title: Deduplicate rows
           kind: boolean
           key: extra.deduplicate
