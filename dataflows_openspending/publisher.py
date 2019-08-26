@@ -15,12 +15,13 @@ from dgp_server.publish_flow import clear_by_source, append_to_primary_key
 class PublisherDGP(BaseDataGenusProcessor):
 
     def __init__(self, config, context, output_datapackage,
-                 output_db, lazy_engine, output_es):
+                 output_db, lazy_engine, output_es, owner_id):
         super().__init__(config, context)
         self.output_datapackage = output_datapackage
         self.output_db = output_db
         self.output_es = output_es
         self.lazy_engine = lazy_engine
+        self.owner_id = owner_id
 
     def update_es(self):
 
@@ -31,44 +32,29 @@ class PublisherDGP(BaseDataGenusProcessor):
                 logger.info('STATUS: FAILED TO UPDATE MODEL')
                 logger.exception(exception)
                 return
-            owner = 'openspending'
-            dataset_id = '{}:{}_{}'.format(
-                owner,
+            owner = self.owner_id
+            dataset_name = '{}_{}'.format(
                 self.config.get(CONFIG_TAXONOMY_ID),
                 self.config.get(CONFIG_EXTRA_METADATA_DATASET_NAME),
+            )
+            dataset_id = '{}:{}_{}'.format(
+                owner,
+                dataset_name
             )
             private = self.config.get(CONFIG_EXTRA_PRIVATE)
             # TODO: replace by real URL
             datapackage_url = 'datapackage-url'
             datapackage = copy.deepcopy(pkg.descriptor)
-            params = {}
-            params['author'] = None
-            params['dataset_name'] = None
-            if 'babbage_model' in datapackage:
-                model = datapackage['babbage_model']
-                del datapackage['babbage_model']
-                params['model'] = model
-            if private is not None:
-                datapackage['private'] = private
-            if owner is not None:
-                datapackage['owner'] = owner
-            if datapackage_url:
-                params['datapackage_url'] = datapackage_url
-                params['datapackage'] = datapackage
-            if loaded is not None:
-                params['loaded'] = loaded
-                params['loading_status'] = 'done' if loaded else 'loading-data'
-            try:
-                # Somehow it doesn't work if the dataset doesn't exist
-                registry.update_model(dataset_id, **params)
-            except Exception:
-                try:
-                    params['status'] = params.pop('loading_status')
-                    registry.save_model(dataset_id, **params)
-                except Exception as exception:
-                    logger.info('STATUS: FAILED TO UPDATE MODEL')
-                    logger.exception(exception)
-                    return
+            registry.save_model(
+                dataset_id,
+                datapackage_url,
+                datapackage,
+                datapackage.get('babbage_model'),
+                dataset_name,
+                'openspending',
+                'done' if loaded else 'loading-data',
+                loaded
+            )
             logger.info('STATUS: UPDATED MODEL')
 
         def progress(res, count):
