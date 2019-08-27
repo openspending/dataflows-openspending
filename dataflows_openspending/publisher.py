@@ -37,7 +37,7 @@ class PublisherDGP(BaseDataGenusProcessor):
                 self.config.get(CONFIG_TAXONOMY_ID),
                 self.config.get(CONFIG_EXTRA_METADATA_DATASET_NAME),
             )
-            dataset_id = '{}:{}_{}'.format(
+            dataset_id = '{}:{}'.format(
                 owner,
                 dataset_name
             )
