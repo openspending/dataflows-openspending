@@ -120,26 +120,30 @@ class PublisherDGP(BaseDataGenusProcessor):
                 dump_to_path(self.output_datapackage)
             ])
         if self.output_db:
-            logger.info('Publisher Flow: Dump To Db...')
+            db_table = '{}_{}'.format(
+                self.config.get(CONFIG_TAXONOMY_ID),
+                self.config.get(CONFIG_EXTRA_METADATA_DATASET_NAME),
+            )
+            logger.info('Publisher Flow: Dump To DB... (%s)', db_table)
             primary_key = self.config.get(CONFIG_PRIMARY_KEY)
             mapping = self.config.get(CONFIG_MODEL_MAPPING)
             for m in mapping:
                 if 'columnType' in m and m['columnType']:
-                    m['column'] = self.column(m['columnType'])
                     m['slug'] = self.slugify(m['title'])
                     m['hierarchy'] = self.slugify(m['columnType'].split(':')[0])
+                    m['column'] = self.column(m['columnType'])
                     m['primaryKey'] = m['columnType'] in primary_key
                     m['measure'] = m['hierarchy'] == 'value'
+                    m['full_column'] = (
+                        m['column'] if m['measure']
+                        else '{}_{hierarchy}.{column}'.format(db_table, **m)
+                    )
                     m['label'] = self.fetch_label(m['columnType'])
                     m['dataType'] = self.fetch_datatype(m['columnType'])
             prefixes = set(
                 m['hierarchy']
                 for m in mapping
                 if m.get('measure') is False
-            )
-            db_table = '{}_{}'.format(
-                self.config.get(CONFIG_TAXONOMY_ID),
-                self.config.get(CONFIG_EXTRA_METADATA_DATASET_NAME),
             )
             prefixed = dict(
                 (p, list(filter(lambda m: m.get('hierarchy') == p, mapping)))
@@ -160,13 +164,13 @@ class PublisherDGP(BaseDataGenusProcessor):
                         key_attribute=m['slug'],
                         attributes=dict([
                             (m['slug'], dict(
-                                column=m['column'],
+                                column=m['full_column'],
                                 label=m['title'],
                                 type=m['dataType'],
                             ))
                         ] + ([
                             (m['label']['slug'], dict(
-                                column=m['label']['column'],
+                                column=m['label']['full_column'],
                                 label=m['label']['title'],
                                 type=m['label']['dataType'],
                             ))

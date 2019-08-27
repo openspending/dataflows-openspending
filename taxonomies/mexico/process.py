@@ -63,7 +63,7 @@ class MissingColumns(BaseAnalyzer):
         ]
         missing = [
             dict(
-                title=x['title'],
+                title=title_mapping[x['name']],
                 name=title_mapping[x['name']],
                 columnType=x['name'],
                 enriched=True,
