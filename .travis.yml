@@ -1,25 +1,52 @@
 dist: xenial
 sudo: required
 language: python
+
 python:
 - 3.7
+
 env:
   global:
   - LANG=en_US.UTF-8
+  # DOCKER_USERNAME
+  - secure: APdQGg+jgeW4+RlQ1kJ+O+76bRIBsvbOJT1V6/kyr59MWMPYMTODIpyYIHA5KNmUf+Af231z/uud0G3xLWbHtS6sKAi6LAgkIuyW0bQ0iZAkP8N91MOOcMCuDWE4W4Vs9LqAeVRvvHLc9PBDU+7GM2ft3bgrs33wtTf5Lv6yEBvNKhBCbSBwV92kjd9I6AzWFHUsThmXW6yHBm5HhZD9UZFYqcy2pQii6fm1RgFBitqdPubNonKq7qmY+KuXfGzaVttbMGKRtqgR30PQ3qVcnna4WOfB5YiXQ9pQmSdGPAwu0k656nsI/ovQto35A14UTcngFi71hSTgEzeGZ2P4LPI1PFTwxr8VVWSivrVRyEKLDlE0bcSnu/szjzZqVkfOoKx3FgpMYBxa7b6ueVICMbckrkUURw2rrwbugcY/OFWHaUizlASWxBCijcuRR3jPkBoZ/5uNNzob8tYPzAXxEpD7/woCcu6xhd3X9bqbaBst/V6u/NUBfNC+DHKF4x6i7o4tahg8J2jRY6Y0AhnjpQIGhrrAuvKhF3E/f2AdgBb0T7ctpnZWIbGObbsXCL5OKbC3+g+FHQR/dPoMJHV3TsgQnm3FRbBC+xLb2f3HeqiOPaugkl9wqJnsQ9FJIKSdv9IIDdwn5bVSPdzQSAZUmKQLwUDI4a8iWhR60EPdmR8=
+  # DOCKER_PASSWORD
+  - secure: rYwhiByPFj6IHUto7KnmiC1feJSETP5ZPyPOaQoh6WKtq/aXoON3JHP/iWjqtd/aRLcF1vKqbb53QWQkWCSHUxDkqtYXmzXhUSNYkCyGC5R30F5ay5xdQH/vpFn8H2S4hlvS5s17Yh8zNWqQFJHoA3DTRZHG6fBqS4oNxhw8wNPgVjtBCvfIYSxZm0TZLAx7GXu49cJmziIEVFWpTKLssg6w3cNBf+gDowLphSpeN6fumlL6EyJ8oAyc7k/liBSeS3RMyOeul9WYkUqW0+0JJ0jrL5Ng+hV11wg6lhmNUyogkPZm2DpFKkY4VYuWYIC8eDHOseyzO9IBvd4wKWiA8S9LKBwCT5JmWpqnu86fUmZWPYNw+dvuaCeKaPXz7yLdbbqmJiGqFne+OUE5eHxuvTkycdUKiwM1+KT8eHnTwzsW+PdPRB6AJoxHSQWa7Xo3TKW4/H3hqQfVUQ0YbmGtNia1HjY6gWfLlCok3SnCE0D4Fbii4NZtRZe4KReVQO+LWo+XbpI16xF50HDKVZ8Z3d4k0GOU/lBZjBaWCybWpRoBDT46k5aU5hvch/hdPJJ11nEBMTP48obaJTBmF2FULQfKBdYKDhkWzWRRVrp2ml5Gmrjzu+cD8E8j0B79uistmEF2lzgXoWxp6Fq+iWi+/QUWJqQpWbashqMwUKqUDl0=
+
 install:
+# Python
 - sudo apt-get install libleveldb-dev libleveldb1v5
 - make install
 - pip install coveralls
+# Docker
+- make ci-build
+- make ci-run
+
 script:
+# Python
 - make lint
 - make test
+# Docker
+- make ci-test
+
 after_success:
+# Python
 - coveralls
+# Docker
+- if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then make ci-push-tag TAG="${TRAVIS_PULL_REQUEST_BRANCH////_}";
+  fi
+
 deploy:
-  provider: pypi
+# Pytnon
+- provider: pypi
   user: akariv
   distributions: sdist bdist_wheel
   on:
     tags: true
   password:
     secure: wIObf9XMvT1MSU6KZrKyZJu+yjgWKjD83jYqylPDCEA5hBKBq9+LjnYQwQkQb/Zz+sct2aDrG+J6R6RTioLzQFvDLEIw7OxyLFqNJoF6OK6fmrQbkGYRl1S0C2JnarHLv5lTfUEf2kMxCV90uASAZk40lk6Zwl4aAO3xn1fgPcn8RuSqlpWrMdbYDqvozkWbQOk6N2Ap5CBODf5Nx73c7n+lvNdBsbtddK/vqokmbe3vcSkVuCNBKwOynyWPOKU3XhnggBQAmVufb/9ROu9arr46xcQ6tiZ93PenAiimW1aG6toUNra45mh6E+Nob/Dv6/sDFpiUfeSym5VEWMtz++mjrv2g8NvWzIxeGZSR73tEIrDQquXS9ZR22555zdZH7iDBT6Ph0W46hlqT31eWEvaTlhdez+5tWgPBd3qLlvSe1o5A1SXJwSIb+wgvmWV0aJaNwF1O8szWIa6M7iXBmhygdp1pyW6ilEKDj8v+8XLehwFrO59iKh0V3VPrRqGSn5RUWD53GpHyUcikFT5k+pF7GvXbkEO4oLmrj/5hFhxypcJtaoTJ5oeMlRVyTccpZ/Hs7h63Nvu+8Pocxr14SIIBL+2SKL5UWHkcVLcllD4MVLIoqnw/6aUTQdbKfK92vpdnmUkkMF0cqf6r6s12LgY4QD+P+pm25hqxM2sY2Ag=
+# Docker
+- provider: script
+  script: make ci-push
+  on:
+    branch: master
