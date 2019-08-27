@@ -120,7 +120,7 @@ class PublisherDGP(BaseDataGenusProcessor):
                 dump_to_path(self.output_datapackage)
             ])
         if self.output_db:
-            db_table = '{}_{}'.format(
+            db_table = 'dgp__{}_{}'.format(
                 self.config.get(CONFIG_TAXONOMY_ID),
                 self.config.get(CONFIG_EXTRA_METADATA_DATASET_NAME),
             )
