@@ -15,7 +15,7 @@ class OsDgpServer(DgpServer):
             os.environ.get('BASE_PATH', '/var/dgp'),
             os.environ.get('DATABASE_URL'),
         )
-        self.es_url = os.environ.get('ELASTICSEARCH_URL')
+        self.es_url = os.environ.get('ELASTICSEARCH_ADDRESS')
         self.owner_id = os.environ.get('OS_OWNER_ID')
 
     def publish_flow(self, config: Config, context: Context):
