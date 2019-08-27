@@ -1,11 +1,13 @@
+import copy
 from slugify import slugify
 from dgp.core import BaseDataGenusProcessor
+from os_package_registry import PackageRegistry
 from dataflows import Flow, dump_to_path, add_field, update_package
 from dataflows_normalize import normalize_to_db, NormGroup
 from dgp.config.consts import CONFIG_TAXONOMY_ID, CONFIG_URL, \
         CONFIG_MODEL_MAPPING, RESOURCE_NAME, CONFIG_PUBLISH_ALLOWED, \
         CONFIG_TAXONOMY_CT, CONFIG_PRIMARY_KEY
-from .consts import CONFIG_EXTRA_METADATA_DATASET_NAME
+from .consts import CONFIG_EXTRA_METADATA_DATASET_NAME, CONFIG_EXTRA_PRIVATE
 from dgp_server.log import logger
 from dgp_server.publish_flow import clear_by_source, append_to_primary_key
 
@@ -13,14 +15,51 @@ from dgp_server.publish_flow import clear_by_source, append_to_primary_key
 class PublisherDGP(BaseDataGenusProcessor):
 
     def __init__(self, config, context, output_datapackage,
-                 output_db, lazy_engine, output_es):
+                 output_db, lazy_engine, output_es, owner_id):
         super().__init__(config, context)
         self.output_datapackage = output_datapackage
         self.output_db = output_db
         self.output_es = output_es
         self.lazy_engine = lazy_engine
+        self.owner_id = owner_id
 
     def update_es(self):
+
+        def update_model_in_registry(pkg, loaded):
+            try:
+                registry = PackageRegistry(self.output_es)
+            except Exception as exception:
+                logger.info('STATUS: FAILED TO UPDATE MODEL')
+                logger.exception(exception)
+                return
+            owner = self.owner_id
+            dataset_name = '{}_{}'.format(
+                self.config.get(CONFIG_TAXONOMY_ID),
+                self.config.get(CONFIG_EXTRA_METADATA_DATASET_NAME),
+            )
+            dataset_id = '{}:{}_{}'.format(
+                owner,
+                dataset_name
+            )
+            private = self.config.get(CONFIG_EXTRA_PRIVATE)
+            # TODO: replace by real URL
+            datapackage_url = 'datapackage-url'
+            datapackage = copy.deepcopy(pkg.descriptor)
+            datapackage.update(dict(
+                private=private,
+                owner=owner
+            ))
+            registry.save_model(
+                dataset_id,
+                datapackage_url,
+                datapackage,
+                datapackage.get('babbage_model'),
+                dataset_name,
+                'openspending',
+                'done' if loaded else 'loading-data',
+                loaded
+            )
+            logger.info('STATUS: UPDATED MODEL')
 
         def progress(res, count):
             for row in res:
@@ -33,9 +72,12 @@ class PublisherDGP(BaseDataGenusProcessor):
             logger.info('STATUS: STARTING')
             yield package.pkg
             count = dict(i=0)
+            update_model_in_registry(package.pkg, loaded=False)
             for res in package:
                 yield progress(res, count)
+            update_model_in_registry(package.pkg, loaded=True)
             logger.info('STATUS: DONE')
+
         return func
 
     def ref_column(self, prefix):

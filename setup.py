@@ -22,10 +22,12 @@ PACKAGE = 'dataflows_openspending'
 NAME = PACKAGE.replace('_', '-')
 INSTALL_REQUIRES = [
     'dgp',
+    'dgp-server',
     'elasticsearch<6',
     'click',
     'awesome-slugify',
     'dataflows-normalize',
+    'os-package-registry',
 ]
 LINT_REQUIRES = [
     'pylama',
