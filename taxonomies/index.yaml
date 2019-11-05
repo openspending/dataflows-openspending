@@ -33,3 +33,34 @@ mexico:
           default: false
   processing_module: mexico/process.py
 
+uruguay:
+  title: Uruguay
+  column_types:
+    - fiscal/column_types.json
+    - uruguay/column_types.json
+  config:
+    extra-config:
+      transform:
+        - title: Dataset Title
+          kind: text
+          key: extra.metadata.title
+        - title: Dataset Name
+          kind: text
+          key: extra.metadata.dataset-name
+        - title: Resource Name
+          kind: text
+          key: extra.resource-name
+        - title: Data Update Date
+          kind: text
+          key: extra.update-date
+        - title: Deduplicate rows
+          kind: boolean
+          key: extra.deduplicate
+          default: false
+      publish:
+        - title: Keep Private (don't publish)
+          kind: boolean
+          key: extra.private
+          default: false
+  processing_module: uruguay/process.py
+

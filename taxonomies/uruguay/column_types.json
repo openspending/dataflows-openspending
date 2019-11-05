@@ -1,0 +1,34 @@
+[
+    {
+        "name": "value",
+        "alternatives": [
+            ["value:APROBADO"],
+            ["value:VIGENTE"],
+            ["value:EJECUTADO"]
+        ]
+    },
+    {
+        "name": "value:APROBADO",
+        "dataType": "number",
+        "title": "Aprobado",
+        "options": {
+            "currency": "UYU"
+        }
+    },
+    {
+        "name": "value:VIGENTE",
+        "dataType": "number",
+        "title": "Vigente",
+        "options": {
+            "currency": "UYU"
+        }
+    },
+    {
+        "name": "value:EJECUTADO",
+        "dataType": "number",
+        "title": "Ejecutado",
+        "options": {
+            "currency": "UYU"
+        }
+    }
+]
