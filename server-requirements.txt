@@ -3,4 +3,4 @@ dataflows-normalize>=0.0.8
 os-package-registry>=0.0.21
 dataflows-aws
 aiopg
-dgp-server>=0.0.56
+dgp-server>=0.0.57
