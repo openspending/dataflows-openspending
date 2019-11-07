@@ -8,6 +8,7 @@ from dgp_server.log import logger
 class LoadMetadata(BaseEnricher):
 
     def test(self):
+        logger.info('UPDATING WITH METADATA? %r', self.config.get('extra.metadata'))
         return self.config.get('extra.metadata')
 
     def postflow(self):
