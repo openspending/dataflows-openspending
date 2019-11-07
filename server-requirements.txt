@@ -1,5 +1,5 @@
 psycopg2-binary
 dataflows-normalize>=0.0.8
-os-package-registry
+os-package-registry>=0.0.21
 dataflows-aws
 aiopg
