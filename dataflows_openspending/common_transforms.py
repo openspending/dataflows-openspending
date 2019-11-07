@@ -11,7 +11,8 @@ class LoadMetadata(BaseEnricher):
         return self.config.get('extra.metadata')
 
     def postflow(self):
-        metadata = self.config._unflatten.get('extra.metadata')
+        metadata = self.config._unflatten.get('extra', {}).get('metadata')
+        logger.info('UPDATING WITH METADATA %r', metadata)
         return Flow(
             update_package(**metadata)
         )
